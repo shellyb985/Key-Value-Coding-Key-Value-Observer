@@ -11,5 +11,10 @@ Example for KVC
 - (void)valueForKeyPath];
 - (void)dictionaryWithValuesForKeys];
 
-
 KVO:
+addObserver:
+removeObserver:
+observeValueForKeyPath:
+
+Example for KVO
+- (void)keyValueOberver;

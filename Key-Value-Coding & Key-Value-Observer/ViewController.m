@@ -15,6 +15,7 @@
 @property (nonatomic, strong) Parent *parentWithChild;
 @property (nonatomic, strong) Parent *parentWithChild2;
 @property (nonatomic, strong) Parent *parentWithChild3;
+@property (nonatomic, strong) Parent *parentWithChild4;
 
 
 @end
@@ -24,10 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    //KVC
     [self valueForKey];
     [self valueForKeyForSubClass];
     [self valueForKeyPath];
     [self dictionaryWithValuesForKeys];
+    
+    //KVO
+    [self keyValueOberver];
 
 
 }
@@ -68,6 +73,17 @@
 
 - (void)dictionaryWithValuesForKeys {
 
+}
+
+- (void)keyValueOberver {
+    self.parentWithChild4 = [[Parent alloc] init];
+    
+    [self.parentWithChild4.child addObserver:self.parentWithChild4 forKeyPath:@"name" options:NSKeyValueObservingOptionNew context:NULL];
+    
+    [self.parentWithChild4.child setValue:@"Rakesh" forKey:@"name"];
+    
+    [self.parentWithChild4.child removeObserver:self.parentWithChild4 forKeyPath:@"name"];
+    
 }
 
 - (void)didReceiveMemoryWarning {
