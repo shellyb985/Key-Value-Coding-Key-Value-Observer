@@ -12,6 +12,14 @@
 
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,assign) NSInteger age;
+
+@end
+
+@interface Parent : NSObject
+
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,assign) NSInteger age;
+@property (nonatomic,strong) NSDictionary *dict;
 @property (nonatomic,strong) Children *child;
 
 @end

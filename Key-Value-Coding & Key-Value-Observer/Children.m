@@ -10,4 +10,28 @@
 
 @implementation Children
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.name = @"";
+        self.age = 0;
+    }
+    return self;
+}
+
+@end
+
+
+@implementation Parent
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.name = @"";
+        self.age = 0;
+        self.child = [[Children alloc] init];
+    }
+    return self;
+}
+
 @end

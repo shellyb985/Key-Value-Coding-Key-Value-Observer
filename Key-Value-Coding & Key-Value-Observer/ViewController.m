@@ -11,8 +11,11 @@
 
 @interface ViewController ()
 
-@property (nonatomic, strong) Children *children1;
-@property (nonatomic, strong) Children *children2;
+@property (nonatomic, strong) Parent *parent;
+@property (nonatomic, strong) Parent *parentWithChild;
+@property (nonatomic, strong) Parent *parentWithChild2;
+@property (nonatomic, strong) Parent *parentWithChild3;
+
 
 @end
 
@@ -21,49 +24,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self method1];
-    [self method2];
+    [self valueForKey];
+    [self valueForKeyForSubClass];
+    [self valueForKeyPath];
+    [self dictionaryWithValuesForKeys];
 
 
 }
 
 
-- (void)method1 {
-    self.children1 = [[Children alloc] init];
-    [self.children1 setValue:@"John" forKey:@"name"];
-    [self.children1 setValue:[NSNumber numberWithInteger:20] forKey:@"age"];
-    
+- (void)valueForKey {
+    self.parent = [[Parent alloc] init];
+    [self.parent setValue:@"John" forKey:@"name"];
+    [self.parent setValue:[NSNumber numberWithInteger:20] forKey:@"age"];
     
     //Children
-    NSString *name = [self.children1 valueForKey:@"name"];
-    NSInteger age = [[self.children1 valueForKey:@"age"] integerValue];
-    NSLog(@"Children1 : %@, %ld",name,(long)age);
-
+    NSString *name = [self.parent valueForKey:@"name"];
+    NSInteger age = [[self.parent valueForKey:@"age"] integerValue];
+    NSLog(@"Parent : %@, %ld",name,(long)age);
 }
 
-- (void)method2 {
-    self.children2 = [[Children alloc] init];
-    self.children2.child = [[Children alloc] init];
-    [self.children2 setValue:@"John" forKey:@"child.namew"];
-    [self.children2 setValue:[NSNumber numberWithInteger:20] forKey:@"child.age"];
+- (void)valueForKeyForSubClass {
+    self.parentWithChild = [[Parent alloc] init];
+    self.parentWithChild.child = [[Children alloc] init];
+    [self.parentWithChild.child setValue:@"Peter" forKey:@"name"];
+    [self.parentWithChild.child setValue:[NSNumber numberWithInteger:23] forKey:@"age"];
     
-    //Child
-    NSString *childName = [self.children2.child valueForKey:@"child.name"];
-    NSInteger childAge = [[self.children2.child valueForKey:@"child.age"] integerValue];
-    NSLog(@"Child : %@, %ld",childName,(long)childAge);
-
+    NSString *childName = [self.parentWithChild.child valueForKey:@"name"];
+    NSInteger childAge = [[self.parentWithChild.child valueForKey:@"age"] integerValue];
+    NSLog(@"Child : %@, %ld",childName,(long)childAge);\
 }
 
-- (void)method3 {
-    self.children1 = [[Children alloc] init];
-    [self.children1 setValue:@"John" forKey:@"name"];
-    [self.children1 setValue:[NSNumber numberWithInteger:20] forKey:@"age"];
+- (void)valueForKeyPath {
+    self.parentWithChild2 = [[Parent alloc] init];
+    [self.parentWithChild2 setValue:@"Joe" forKeyPath:@"child.name"];
+    [self.parentWithChild2 setValue:[NSNumber numberWithInteger:15] forKeyPath:@"child.age"];
     
-    NSString *name = [self.children1.child valueForKey:@"name"];
-    NSInteger age = [[self.children1.child valueForKey:@"age"] integerValue];
+    NSString *name = [self.parentWithChild2 valueForKeyPath:@"child.name"];
+    NSInteger age = [[self.parentWithChild2 valueForKeyPath:@"child.age"] integerValue];
     
     NSLog(@"child : %@, %ld",name,(long)age);
-    
+}
+
+- (void)dictionaryWithValuesForKeys {
+
 }
 
 - (void)didReceiveMemoryWarning {
